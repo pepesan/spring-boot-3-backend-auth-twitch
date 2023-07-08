@@ -2,9 +2,12 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
   jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
