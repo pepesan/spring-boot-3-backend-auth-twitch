@@ -2,10 +2,7 @@ server:
   port: 8081
 jwt:
   secret: misecretomaximoquedebeserlargoosinoestopeta
-  header: Authorization
-  prefix: Bearer
   expirationMs: 300000
-  cookieName: jwt-cookie
 spring:
   sql:
     init:

@@ -21,10 +21,6 @@ public class JwtUtils {
   @Value("${jwt.expirationMs}")
   private int jwtExpirationMs;
 
-  @Value("${jwt.cookieName}")
-  private String jwtCookie;
-
-
   public String getUserNameFromJwtToken(String token) {
     return Jwts.parserBuilder().setSigningKey(key()).build()
                .parseClaimsJws(token).getBody().getSubject();
