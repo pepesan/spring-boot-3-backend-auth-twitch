@@ -2,10 +2,15 @@ package com.cursosdedesarrollo.backendauth.services;
 
 import com.cursosdedesarrollo.backendauth.domain.User;
 import com.cursosdedesarrollo.backendauth.repositories.UsersRepository;
+import com.cursosdedesarrollo.backendauth.security.services.UserDetailsImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +18,7 @@ import java.util.Optional;
 @Service
 @Getter
 @Setter
-public class UserService {
+public class UserService implements UserDetailsService {
     private UsersRepository usersRepository;
 
     @Autowired
@@ -34,6 +39,10 @@ public class UserService {
         return this.usersRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(String username) {
+        return this.usersRepository.findByUsername(username);
+    }
+
     public User deleleById(Long id) {
         Optional<User> usuarioGuardado = this.usersRepository.findById(id);
         if (usuarioGuardado.isPresent()){
@@ -43,5 +52,13 @@ public class UserService {
             return new User();
         }
 
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = this.usersRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        return UserDetailsImpl.build(user);
     }
 }
