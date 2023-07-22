@@ -6,8 +6,10 @@ spring:
     username: root
     password: root
   jpa:
+    show-sql: true
     properties:
       hibernate:
+        format_sql: true
         #dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update

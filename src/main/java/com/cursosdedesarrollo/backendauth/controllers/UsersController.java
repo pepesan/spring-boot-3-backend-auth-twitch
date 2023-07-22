@@ -1,10 +1,13 @@
 package com.cursosdedesarrollo.backendauth.controllers;
 
 import com.cursosdedesarrollo.backendauth.domain.User;
+import com.cursosdedesarrollo.backendauth.services.RoleService;
 import com.cursosdedesarrollo.backendauth.services.UserService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,8 @@ import java.util.Optional;
 @Getter
 @Setter
 public class UsersController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
     private UserService userService;
 

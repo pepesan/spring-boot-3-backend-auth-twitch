@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +24,13 @@ public class User {
     private String type;
     private Boolean active;
     private String activationToken;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "auth_user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     public User(UserRegisterDTO userRegister){
         this.username = userRegister.getUsername();
         this.password = userRegister.getPassword();
